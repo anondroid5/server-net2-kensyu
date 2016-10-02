@@ -1,0 +1,58 @@
+[mysqlテーブル作成に関する手順]
+
+[root権限で作成]
+mysql -u root -p
+
+[phpデータベースの作成]
+create database phpdb;
+
+[データベースを表示]
+show databases;
+
+[使用するデータベースを選択]
+use phpdb;
+
+[テーブルを表示]
+show tables;
+
+[テーブルを作成 例:inquiryテーブルの作成]
+create table inquiry(
+name varchar(64),
+email varchar(64),
+msg varchar(64)
+);
+
+[テーブルを再表示]
+show tables;
+
+
+--------------------------------------------------
+
+[ユーザの作成]
+create user 'zabbix'@'localhost' identified by 'zabbixpassword';
+
+[権限付与 例:phpdbデータベースの全テーブルにzabbixの権限付与]
+grant all privileges on phpdb.* to 'zabbix'@'localhost';
+
+[権限の反映させる]
+flush privileges;
+
+[データベースの削除 例:phpdbというデータベースを削除]
+drop database phpdb;
+
+[データベースのテーブルにデータ登録]
+insert into phpdb.inquiry(name,email,msg) values ('akaki','akaki.fumihiko@jp.fujitsu.com','testtest');
+
+[データベースのテーブルにカラムの追加 例:phpdb内のinquiryテーブルにpriceを追加]
+alter table phpdb.inquiry add price int;
+
+
+[データベースのテーブルにカラムの追加 例:phpdb内のinquiryテーブルにpriceを削除]
+alter table phpdb.inquiry drop column price;
+
+
+[テーブルの情報を表示]
+select * from inquiry;
+
+
+
